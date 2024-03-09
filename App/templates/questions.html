@@ -1,0 +1,396 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/output.css' %}"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"
+      rel="stylesheet"
+    />
+    <title>SQL Quest</title>
+  </head>
+  <!-- <body
+    class="px-24 py-10 bg-[#0a0a0b] animate-fade-down animate-once animate-duration-[2000ms] animate-delay-300 animate-ease-in-out"
+  > -->
+  <body class="px-24 py-10 pt-0 bg-[#0a0a0b] ml-48">
+    <section>
+      <div>
+        <header class="fixed bg-[#0a0a0b] inset-x-0 top-0 z-50">
+          <nav
+            class="flex items-center justify-between py-6 px-8 lg:px-8"
+            aria-label="Global"
+          >
+            <div class="flex lg:flex-1">
+              <div class="flex flex-row">
+                <div class="mr-1">
+                  <img
+                    class="h-8 w-auto"
+                    src="{% static 'svg/database.svg' %}"
+                    alt=""
+                  />
+                </div>
+                <div>
+                  <a href="{% url 'homeVAR' %}">
+                    <h1
+                      class="text-2xl text-slate-50 uppercase font-normal font-sans leading-10 tracking-[-0.049375rem]"
+                    >
+                      <span>SQL</span> Quest
+                    </h1>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div class="hidden lg:flex lg:gap-x-12">
+              <a
+                href="{% url 'homeVAR' %}"
+                class="text-sm leading-6 text-gray-100 relative group inline-block transition-transform transform-gpu hover:translate-y-[-2px] hover:text-gray-100"
+              >
+                Home
+                <span
+                  class="absolute bottom-[-1rem] left-1/2 transform -translate-x-1/2 w-3 h-3 bg-gray-100 rounded-full opacity-100 animate-bubble animate-wiggle"
+                ></span>
+              </a>
+              <a
+                href="{% url 'solveVAR' %}"
+                class="text-sm leading-6 text-gray-100 relative group inline-block transition-transform transform-gpu hover:translate-y-[-2px] hover:text-gray-100"
+              >
+                Solve
+                <span
+                  class="absolute bottom-[-1rem] left-1/2 transform -translate-x-1/2 w-3 h-3 bg-gray-100 rounded-full opacity-0 group-hover:opacity-100 animate-bubble animate-wiggle"
+                ></span>
+              </a>
+              <a
+                href="{% url 'helpVAR' %}"
+                class="text-sm leading-6 text-gray-100 relative group inline-block transition-transform transform-gpu hover:translate-y-[-2px] hover:text-gray-100"
+              >
+                Help
+                <span
+                  class="absolute bottom-[-1rem] left-1/2 transform -translate-x-1/2 w-3 h-3 bg-gray-100 rounded-full opacity-0 group-hover:opacity-100 animate-bubble"
+                ></span>
+              </a>
+              <a
+                href="{% url 'aboutVAR' %}"
+                class="text-sm leading-6 text-gray-100 relative group inline-block transition-transform transform-gpu hover:translate-y-[-2px] hover:text-gray-100"
+              >
+                About us
+                <span
+                  class="absolute bottom-[-1rem] left-1/2 transform -translate-x-1/2 w-3 h-3 bg-gray-100 rounded-full opacity-0 group-hover:opacity-100 animate-bubble"
+                ></span>
+              </a>
+            </div>
+
+            <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+              {% if not request.session.Current_UserID %}
+              <!-- If user is not logged in, show login and sign-up links -->
+              <a
+                href="{% url 'loginVAR' %}"
+                class="mr-3 relative rounded-md bg-transparent px-5 py-2.5 text-sm text-gray-50 border border-gray-600 shadow-sm hover:bg-gray-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 transition-transform duration-300 ease-in-out"
+              >
+                <span
+                  class="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2"
+                ></span>
+                Log In
+              </a>
+              <a
+                href="{% url 'signupVAR' %}"
+                class="relative rounded-md bg-gray-50 px-5 py-2.5 text-sm text-gray-950 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 transition-transform duration-300 ease-in-out"
+              >
+                <span
+                  class="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2"
+                ></span>
+                Sign Up
+              </a>
+              {% else %}
+              <!-- If user is logged in, show logout button -->
+              <p
+                class="relative rounded-md bg-gray-50 px-5 py-2.5 text-sm text-gray-950 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 transition-transform duration-300 ease-in-out"
+              >
+                <span
+                  class="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2"
+                ></span>
+                Welcome {{request.session.Current_UserName}}
+              </p>
+              <form
+                action="{% url 'logoutVAR_virtual' %}"
+                method="post"
+                class="mr-3"
+              >
+                {% csrf_token %}
+                <button
+                  type="submit"
+                  class="relative rounded-md bg-transparent px-5 py-2.5 text-sm text-gray-50 border border-gray-600 shadow-sm hover:bg-gray-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 transition-transform duration-300 ease-in-out"
+                >
+                  <span
+                    class="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2"
+                  ></span>
+                  Log Out
+                </button>
+              </form>
+              {% endif %}
+            </div>
+          </nav>
+        </header>
+      </div>
+    </section>
+
+    <section id="sidebar">
+      <aside
+        id="default-sidebar"
+        class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
+        aria-label="Sidenav"
+      >
+        <div
+          class="overflow-y-auto py-5 px-3 h-full bg-[#0a0a0b] border-r border-gray-700 mt-[5.6rem]"
+        >
+          <ul class="space-y-2">
+            {% for item in SideBarData %}
+            <li>
+              <span class="text-white font-bold"
+                >{{ item.ModuleID }}. {{ item.Description }}</span
+              >
+              <ul class="py-2 space-y-2" aria-orientation="vertical">
+                {% for i in item.QuestionID %}
+                <li>
+                  <a
+                    id="{{ i }}"
+                    href="{% url 'questionsVAR' %}?question_id={{ i }}"
+                    class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-100 bg-gray-600 rounded-lg transition duration-75 group hover:bg-gray-600"
+                    >Question {{ i }}</a
+                  >
+                </li>
+                {% endfor %}
+              </ul>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </aside>
+    </section>
+
+    <section class="mb-5 mt-[6.8rem] ml-48">
+      <h1
+        class="mb-5 text-4xl font-extrabold bg-gradient-to-br from-white via-slate-200 to-slate-500 bg-clip-text text-transparent"
+      >
+        {{ questionInfo.Description }}
+      </h1>
+
+      <div class="mb-2 text-sm text-slate-50">
+        <span class="font-extrabold"
+          >{{ questionInfo.CompletedQuestions }}</span
+        >
+        of
+        <span class="font-extrabold">{{ questionInfo.TotalQuestions }}</span>
+        Complete. ({{ questionInfo.ProgressPercentage }}%)
+      </div>
+
+      <div class="w-[40%] rounded-full h-2.5 bg-gray-500 mb-10">
+        <div
+          class="bg-gradient-to-br from-white via-slate-50 to-gray-100 h-2.5 rounded-full"
+          style="width:{{ questionInfo.ProgressPercentage }}%"
+        ></div>
+      </div>
+      <center>
+        <h1 class="text-white text-3xl font-bold">World Table</h1>
+      </center>
+      <div class="overflow-x-auto">
+        <table
+          class="table-auto border-collapse border border-gray-300 text-slate-50"
+        >
+          <thead>
+            <tr>
+              <th class="border border-gray-200 px-4 py-2">Country Code</th>
+              <th class="border border-gray-200 px-4 py-2">Country</th>
+              <th class="border border-gray-200 px-4 py-2">Capital</th>
+              <th class="border border-gray-200 px-4 py-2">Continent</th>
+              <th class="border border-gray-200 px-4 py-2">Population</th>
+              <th class="border border-gray-200 px-4 py-2">Area</th>
+              <th class="border border-gray-200 px-4 py-2">Sex Ratio</th>
+              <th class="border border-gray-200 px-4 py-2">GDP</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="border border-gray-200 px-4 py-2">ABW</td>
+              <td class="border border-gray-200 px-4 py-2">Aruba</td>
+              <td class="border border-gray-200 px-4 py-2">Oranjestad</td>
+              <td class="border border-gray-200 px-4 py-2">North America</td>
+              <td class="border border-gray-200 px-4 py-2">106445</td>
+              <td class="border border-gray-200 px-4 py-2">180</td>
+              <td class="border border-gray-200 px-4 py-2">90.4</td>
+              <td class="border border-gray-200 px-4 py-2">2702000000.00</td>
+            </tr>
+            <tr>
+              <td class="border border-gray-200 px-4 py-2">AFG</td>
+              <td class="border border-gray-200 px-4 py-2">Afghanistan</td>
+              <td class="border border-gray-200 px-4 py-2">Kabul</td>
+              <td class="border border-gray-200 px-4 py-2">Asia</td>
+              <td class="border border-gray-200 px-4 py-2">41128771</td>
+              <td class="border border-gray-200 px-4 py-2">652230</td>
+              <td class="border border-gray-200 px-4 py-2">106.3</td>
+              <td class="border border-gray-200 px-4 py-2">20270000000.00</td>
+            </tr>
+            <tr>
+              <td class="border border-gray-200 px-4 py-2">AGO</td>
+              <td class="border border-gray-200 px-4 py-2">Angola</td>
+              <td class="border border-gray-200 px-4 py-2">Luanda</td>
+              <td class="border border-gray-200 px-4 py-2">Africa</td>
+              <td class="border border-gray-200 px-4 py-2">35588987</td>
+              <td class="border border-gray-200 px-4 py-2">1246700</td>
+              <td class="border border-gray-200 px-4 py-2">96.2</td>
+              <td class="border border-gray-200 px-4 py-2">117955000000.00</td>
+            </tr>
+            <tr>
+              <td class="border border-gray-200 px-4 py-2">AIA</td>
+              <td class="border border-gray-200 px-4 py-2">Anguilla</td>
+              <td class="border border-gray-200 px-4 py-2">The Valley</td>
+              <td class="border border-gray-200 px-4 py-2">North America</td>
+              <td class="border border-gray-200 px-4 py-2">15857</td>
+              <td class="border border-gray-200 px-4 py-2">91</td>
+              <td class="border border-gray-200 px-4 py-2">97.6</td>
+              <td class="border border-gray-200 px-4 py-2">320000000.00</td>
+            </tr>
+            <tr>
+              <td class="border border-gray-200 px-4 py-2">ALB</td>
+              <td class="border border-gray-200 px-4 py-2">Albania</td>
+              <td class="border border-gray-200 px-4 py-2">Tirana</td>
+              <td class="border border-gray-200 px-4 py-2">Europe</td>
+              <td class="border border-gray-200 px-4 py-2">2842321</td>
+              <td class="border border-gray-200 px-4 py-2">28748</td>
+              <td class="border border-gray-200 px-4 py-2">101.9</td>
+              <td class="border border-gray-200 px-4 py-2">11541000000.00</td>
+            </tr>
+            <tr>
+              <td class="border-gray-300 px-4 py-2">.......</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="User_Query_Area" class="max-w-[100%] ml-48">
+      <div class="grid grid-cols-2 rounded-lg border border-slate-100">
+        <div
+          class="col-span-1 bg-slate-900 p-10 pb-20 rounded-l-lg text-left max-w-[100%] overflow-hidden"
+        >
+          <p class="text-lg text-gray-300 leading-normal tracking-normal">
+            <span class="text-2xl font-bold text-gray-50 mb-1 tracking-wide"
+              >{{ questionInfo.QuestionID }}.</span
+            >
+            <br />
+            {{ questionInfo.QuestionText }}
+          </p>
+          <form
+            method="post"
+            action="{% url 'userquerysubmitVAR_virtual' %}?question_id={{question_id}}"
+          >
+            {% csrf_token %}
+            <textarea
+              class="w-full h-[50%] rounded-lg mt-5 mb-4 p-4 bg-slate-200 text-sm"
+              rows="4"
+              cols="50"
+              name="userSQL_query"
+            >
+{{Userquery_Field}}</textarea
+            >
+            <button
+              type="submit"
+              class="m-1 mb-3 bg-gray-200 p-4 px-6 font-bold text-gray-900 rounded-lg border-2 border-black hover:bg-gray-300 hover:border-gray-900 hover:text-gray-800 transition duration-300 ease-in-out"
+            >
+              SUBMIT SQL
+            </button>
+          </form>
+        </div>
+
+        <div class="col-span-1 bg-slate-300 rounded-r-lg p-10 pb-14">
+          {% if isQueryCorrect is not None %} {% if isQueryCorrect %}
+          <h1 class="text-2xl font-semibold mb-10">
+            Correct Answer &nbsp;<span class="text-3xl">🎉</span>
+          </h1>
+          {% else %}
+          <h1 class="text-2xl font-semibold mb-10">
+            Wrong Answer &nbsp;<span class="text-3xl">☠️</span>
+          </h1>
+          {% endif %} {% endif %}
+
+          <table
+            class="table-auto border-collapse border-2 border-gray-900 text-slate-50"
+          >
+            <thead>
+              <tr>
+                {% for head in Display_Table_head %}
+                <th class="border border-gray-900 px-4 py-2 text-gray-950">
+                  {{head}}
+                </th>
+                {% endfor %}
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in Display_table_data %}
+              <tr>
+                {% for data in item%}
+                <td class="border border-gray-900 px-4 py-2 text-gray-800">
+                  {{data}}
+                </td>
+                {% endfor %}
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Parse URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const selectedQuestionId = urlParams.get("question_id");
+
+        if (selectedQuestionId) {
+          // Scroll to the selected question
+          const selectedQuestionElement =
+            document.getElementById(selectedQuestionId);
+          const selectedElementOnRight =
+            document.getElementById("User_Query_Area");
+          if (selectedQuestionElement) {
+            selectedQuestionElement.scrollIntoView({
+              behavior: "smooth",
+              block: "center",
+            });
+          }
+          if (selectedElementOnRight) {
+            selectedElementOnRight.scrollIntoView({
+              behavior: "smooth",
+              block: "end",
+            });
+          }
+        }
+      });
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Parse URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        var selectedQuestionId = urlParams.get("question_id");
+
+        if (selectedQuestionId) {
+          // Highlight the selected question
+          const selectedQuestionElement =
+            document.getElementById(selectedQuestionId);
+          if (selectedQuestionElement) {
+            selectedQuestionElement.style.backgroundColor = "#1a2533"; // Example background color for the selected question
+            selectedQuestionElement.style.color = "#ffffff"; // Example text color for the selected question
+            selectedQuestionElement.style.fontWeight = "bold"; // Example font weight for the selected question
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

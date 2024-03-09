@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL-QUEST</title>
+    <!-- Reset -->
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+
+    <!-- GreenSock Animation Platform (GSAP) -->
+    <script src="https://unpkg.com/gsap@3.9.0/dist/gsap.min.js"></script>
+
+    <style>
+        body {
+            background: #0a0a0b
+        }
+
+        svg {
+            font-family: 'Poppins', sans-serif;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        svg text {
+            text-transform: uppercase;
+            animation: stroke 5s infinite alternate;
+            stroke-width: 2;
+            stroke: #fff;
+            font-size: 140px;
+        }
+
+        @keyframes stroke {
+            0% {
+                fill: rgba(72, 138, 20, 0);
+                stroke: #fff;
+                stroke-dashoffset: 25%;
+                stroke-dasharray: 0 50%;
+                stroke-width: 2;
+            }
+
+            70% {
+                fill: rgba(72, 138, 20, 0);
+                stroke: #fff;
+            }
+
+            80% {
+                fill: rgba(72, 138, 20, 0);
+                stroke: #fff;
+                stroke-width: 3;
+            }
+
+            100% {
+                fill: #fff;
+                stroke: #fff;
+                stroke-dashoffset: -25%;
+                stroke-dasharray: 50% 0;
+                stroke-width: 0;
+            }
+        }
+
+        .overlay {
+            position: fixed;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+    </style>
+</head>
+
+<body class="overflow-x-hidden max-h-screen	 bg-white font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;">
+
+    <div id="loading-page" class="max-h-screen">
+        <svg id="svgani" viewBox="0 0 1320 300">
+            <text x="50%" y="50%" dy=".35em" text-anchor="middle" class="">
+                SQL Quest
+            </text>
+        </svg>
+    </div>
+
+    <script>
+        const svgText = document.querySelector('svg text');
+
+        svgText.addEventListener('animationiteration', () => {
+            // Animation is complete, wait 0.5 seconds and then redirect to home.html
+            setTimeout(() => {
+                window.location.href = "{% url 'homeVAR' %}";
+            }, 600);
+        });
+    </script>
+
+</body>
+
+</html>

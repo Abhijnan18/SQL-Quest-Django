@@ -1,0 +1,204 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/output.css' %}">
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>SQL Quest</title>
+  </head>
+  <!-- <body
+    class="px-24 py-10 bg-[#0a0a0b] animate-fade-down animate-once animate-duration-[2000ms] animate-delay-300 animate-ease-in-out"
+  > -->
+  <body class="px-24 py-10 pt-0 bg-[#0a0a0b]">
+
+    <section>
+      <div>
+        <header class="fixed bg-[#0a0a0b] inset-x-0 top-0 z-50">
+          <nav class="flex items-center justify-between py-6 px-8 lg:px-8" aria-label="Global">
+            
+            <div class="flex lg:flex-1">
+              <div class="flex flex-row">
+                <div class="mr-1"><img class="h-8 w-auto" src="{% static 'svg/database.svg' %}" alt="" /></div>
+                <div>
+                  <a href="{% url 'homeVAR' %}">
+                    <h1 class="text-2xl text-slate-50 uppercase font-normal font-sans leading-10 tracking-[-0.049375rem]">
+                      <span>SQL</span> Quest
+                    </h1>
+                  </a>
+                </div>
+              </div>
+            </div>
+            
+            <div class="hidden lg:flex lg:gap-x-12">
+              <a href="{% url 'homeVAR' %}" class="text-sm leading-6 text-gray-100 relative group inline-block transition-transform transform-gpu hover:translate-y-[-2px] hover:text-gray-100">
+                Home
+                <span class="absolute bottom-[-1rem] left-1/2 transform -translate-x-1/2 w-3 h-3 bg-gray-100 rounded-full opacity-0 group-hover:opacity-100 animate-bubble animate-wiggle"></span>
+              </a>
+              <a href="{% url 'solveVAR' %}" class="text-sm leading-6 text-gray-400 relative group inline-block transition-transform transform-gpu hover:translate-y-[-2px] hover:text-gray-100">
+                Solve
+                <span class="absolute bottom-[-1rem] left-1/2 transform -translate-x-1/2 w-3 h-3 bg-gray-100 rounded-full opacity-0 group-hover:opacity-100 animate-bubble animate-wiggle"></span>
+              </a>
+              <a href="{% url 'helpVAR' %}" class="text-sm leading-6 text-gray-400 relative group inline-block transition-transform transform-gpu hover:translate-y-[-2px] hover:text-gray-100">
+                Help
+                <span class="absolute bottom-[-1rem] left-1/2 transform -translate-x-1/2 w-3 h-3 bg-gray-100 rounded-full opacity-0 group-hover:opacity-100 animate-bubble"></span>
+              </a>
+              <a href="{% url 'aboutVAR' %}" class="text-sm leading-6 text-gray-400 relative group inline-block transition-transform transform-gpu hover:translate-y-[-2px] hover:text-gray-100">
+                About us
+                <span class="absolute bottom-[-1rem] left-1/2 transform -translate-x-1/2 w-3 h-3 bg-gray-100 rounded-full opacity-0 group-hover:opacity-100 animate-bubble"></span>
+              </a>
+            </div>
+
+            <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+              {% if not request.session.Current_UserID %}
+                  <!-- If user is not logged in, show login and sign-up links -->
+                  <a href="{% url 'loginVAR' %}" class="mr-3 relative rounded-md bg-transparent px-5 py-2.5 text-sm text-gray-50 border border-gray-600 shadow-sm hover:bg-gray-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 transition-transform duration-300 ease-in-out">
+                      <span class="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2"></span>
+                      Log In
+                  </a>
+                  <a href="{% url 'signupVAR' %}" class="relative rounded-md bg-gray-50 px-5 py-2.5 text-sm text-gray-950 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 transition-transform duration-300 ease-in-out">
+                      <span class="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2"></span>
+                      Sign Up
+                  </a>
+              {% else %}
+                <p class="relative rounded-md bg-gray-50 px-5 py-2.5 text-sm text-gray-950 shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 transition-transform duration-300 ease-in-out">
+                  <span class="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2"></span>
+                  Welcome {{request.session.Current_UserName}}
+                </p>
+                  <!-- If user is logged in, show logout button -->
+                  <form action="{% url 'logoutVAR_virtual' %}" method="post" class="mr-3">
+                      {% csrf_token %}
+                      <button type="submit" class="relative rounded-md bg-transparent px-5 py-2.5 text-sm text-gray-50 border border-gray-600 shadow-sm hover:bg-gray-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 transition-transform duration-300 ease-in-out">
+                          <span class="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2"></span>
+                          Log Out
+                      </button>
+                  </form>
+              {% endif %}
+            </div>
+
+          </nav>
+        </header>
+      </div>
+    </section>
+
+    <section>
+      <div class="flex flex-col max-h-dvh mt-[15%] items-center justify-center">
+        <h1 class="text-gray-100 text-3xl font-bold leading-10 tracking-[-0.049375rem] mb-10">
+          Sign up
+        </h1>
+        <div class="w-[20%]">
+        <form id="signupForm" class="no-default-styles flex flex-col gap-4 bg-black" method="POST" onsubmit="return validateEmail()">
+          {% csrf_token %}
+    
+            <label for="username" class="text-gray-100 font-medium text-sm leading-6">
+              User Name
+            </label>
+            <div>
+              <input name="UserName_InputBox" type="text" id="username" class="mb-2 rounded-lg w-full py-2 text-gray-900 border-0 ring-1 ring-inset ring-gray-300 focus:ring-4 focus:ring-inset focus:ring-blue-600 bg-gray-100" required>
+            </div>
+
+            <label for="email" class="text-gray-100 font-medium text-sm leading-6">
+              E-mail
+            </label>
+            <div>
+              <input name="UserEmail_InputBox" type="email" id="email" class="mb-2 rounded-lg w-full py-2 text-gray-900 border-0 ring-1 ring-inset ring-gray-300 focus:ring-4 focus:ring-inset focus:ring-blue-600 bg-gray-100" required>
+            </div>
+            <div>
+              <span id="emailError" class="text-white font-bold ml-2"></span>
+            </div>
+        
+            <label for="password" class="text-gray-100 font-medium text-sm leading-6">
+              Password
+            </label>
+            <div>
+              <input name="UserPassword_InputBox" type="password" id="password" class="mb-2 rounded-lg w-full py-2 text-gray-900 border-0 ring-1 ring-inset ring-gray-300 focus:ring-4 focus:ring-inset focus:ring-blue-600 bg-gray-100" oninput="checkPasswordMatch()" required>
+            </div>
+            <label for="confirm_password" class="text-gray-100 font-medium text-sm leading-6">
+              Confirm Password
+            </label>
+            <div>
+              <input type="password" id="confirm_password" class="mb-2 rounded-lg w-full py-2 text-gray-900 border-0 ring-1 ring-inset ring-gray-300 focus:ring-4 focus:ring-inset focus:ring-blue-600 bg-gray-100" oninput="checkPasswordMatch()" required>
+            </div>
+            <div>
+              <span id="password_match_message" class="text-white font-bold ml-2"></span>
+            </div>
+            <button type="submit" id="submitBtn" disabled class="text-gray-100 bg-blue-600 p-3 w-full rounded-lg font-medium hover:bg-blue-700 transition duration-300 ease-in-out text-lg tracking-wide focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+              Create Account
+            </button>
+          
+        </form>
+      </div>
+    
+        <div class="mt-8 w-[20%]">
+          <div class="mt-3 text-right">
+            <a href="{% url 'loginVAR' %}">
+              <p class="text-gray-300 text-sm tracking-wide leading-snug">
+                Already have an account?
+                <span
+                  class="font-semibold text-gray-100 underline decoration-blue-100 decoration-1 underline-offset-[6px] cursor-pointer hover:decoration-2 transition duration-300 ease-in-out"
+                  >Log In</span
+                >
+              </p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script>
+      // Define a JavaScript variable to hold the value of UserDataAddedConfirmation
+      var userDataAddedConfirmation = {{ UserDataAddedConfirmation }};
+      
+      // Check the value of userDataAddedConfirmation and display the alert accordingly
+      if (userDataAddedConfirmation === 1) {
+          alert("New User successfully added!");
+          window.location.href = "{% url 'loginVAR' %}";
+      } else if (userDataAddedConfirmation === 0) {
+          alert("User already exists!");
+      }
+  </script>
+    <script>
+      
+      function validateEmail() {
+            var email = document.getElementById("email").value;
+            var emailError = document.getElementById("emailError");
+
+            if (!isValidEmail(email)) {
+                emailError.textContent = "Please enter a valid email address.";
+                return false;
+            } else {
+                emailError.textContent = "";
+                return true;
+            }
+        }
+
+        function isValidEmail(email) {
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+      function checkPasswordMatch() {
+          var password = document.getElementById("password").value;
+          var confirm_password = document.getElementById("confirm_password").value;
+          var submitBtn = document.getElementById("submitBtn");
+
+          if (password != confirm_password) {
+              submitBtn.disabled = true;
+              document.getElementById("password_match_message").innerHTML = "Passwords do not match";
+          } else {
+              submitBtn.disabled = false;
+              document.getElementById("password_match_message").innerHTML = "";
+          }
+      }
+      </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+  </body>
+</html>
